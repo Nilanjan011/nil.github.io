@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>fecth api</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" name="name" id="name" />
+      <br /><br />
+      <input type="password" name="pass" id="pass" />
+      <br /><br />
+      <button onclick="send()">send</button>
+    </div>
+
+    <h1 id="id"></h1>
+    <script>
+      function send() {
+        var name = document.getElementById("name").value;
+        var pass = document.getElementById("pass").value;
+
+        if (name != "" && pass != "") {
+          var url = "./fet.php";
+          params = {name:name,pass:pass};
+          console.log(JSON.stringify(params));
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(params),
+          })
+            .then((res) => res.json())
+            .then((data) => document.getElementById("id").innerHTML=(data.name))//console.log(data); kore dakha6i konoproblem hoy ni
+            .catch((error) => console.log(error));
+        } else {
+          document.getElementById("id").innerHTML = "please input some text";
+        }
+      }
+    </script>
+  </body>
+</html>
