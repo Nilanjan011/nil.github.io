@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        h1{color:#b9310f;}
+    </style>
+</head>
+<body>
+     <!-- //// fade in fade out  animation ---Telusko \\ -->
+    <h2 style="color:mediumvioletred"  id="h2" >this is h2 heading </h2>
+    <button onclick="fadeout()" id="btn">click here</button>
+    <button onclick="fa()">append here</button>
+    <button onclick="add_input()">append input</button>
+    <div id="id"></div>
+    <div id="ap"></div>
+=
+
+    <script>
+        var childNumber=3;
+        function fa(){
+            document.getElementById("ap").innerHTML +="<h1>jjhgvhjbjkhbj"+childNumber+"kbnkjbn</h1>";
+        //-----------------------it's work and from stackover flow 
+            var parent = document.getElementById('ap');
+            var newChild = '<p>Child ' + childNumber + '</p>';
+            parent.insertAdjacentHTML('beforeend', newChild);
+            childNumber++;
+        
+        }
+		var k='jkl';
+        var i=document.getElementById("id");
+        i.innerHTML=`<h1>k= ${k} <h1>`;
+        // document.getElementById("id").innerHTML='<h1>k='+k+'</h1>';
+        /////thapa technbical react jsx theke sekha///
+        var f=document.createElement("h1");
+        f.innerHTML='It is teke from thapa technical react tutorial';
+        document.getElementById("id").appendChild(f); 
+        //// fade in fade out  animation ---Telusko \\
+        var opacity=0;
+        var intervalid=0;
+            
+        function fadeout() {
+            intervalid=setInterval(hide,150);
+        }
+        function hide() {
+            var img= document.getElementById("h2");
+            opacity=Number(window.getComputedStyle(img).getPropertyValue("opacity"));
+            // console.log(img);
+            if (opacity > 0) {
+                opacity=opacity-0.1;
+                img.style.opacity=opacity;
+                
+            } else {
+                clearInterval(intervalid);
+            }
+            if (opacity==0) { // ata amar nijaer kora 
+                img.style.display='none';
+            }
+            
+        }
+
+    </script>
+</body>
+</html>
