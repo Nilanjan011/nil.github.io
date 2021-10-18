@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        h1{color:#b9310f;}
+    </style>
+</head>
+<body>
+    <button onclick="add_input()">append input</button>
+    <div id="multiple_input"></div>
+
+    <script>
+
+        function removeParent(parent) {
+            console.log(parent)
+            parent.remove();
+        }
+        function add_input(){
+            document.getElementById("multiple_input").innerHTML +=`<div>
+            <input type="text" name="multiple[]">
+            <button class="remove" onclick ="removeParent(this.parentNode)">X</button>
+        </div>`;
+        
+        }
+    </script>
+</body>
+</html>
