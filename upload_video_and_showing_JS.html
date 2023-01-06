@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* 
+      .leftDiv {
+        position: absolute;
+        top: 149px;
+        left: 367px;
+        height: 207px;
+        width: 212px;
+        color: #fff;
+        background-color: transparent;
+        border-style: solid;
+        border-color: whitesmoke;
+        display: none;
+        cursor: pointer;
+        z-index: 1;
+      }
+
+      .rightDiv {
+        position: absolute;
+        top: 149px;
+        left: 610px;
+        height: 207px;
+        width: 212px;
+        color: #fff;
+        border-style: solid;
+        border-color: whitesmoke;
+        display: none;
+        cursor: pointer;
+        z-index: 1;
+      } 
+      */
+    </style>
+    <meta charset="UTF-8" />
+    <title>FixCSS</title>
+  </head>
+
+  <body>
+      <input type="file" id="myFile" name="filename" onchange="uploadFile(this)" >
+      <!-- <button  >subit</button> -->
+    <div style="position: absolute; width: 1147px; height: 411px; margin: 30px">
+      <div id="leftDiv" class="leftDiv" onclick="leftDivClicked()"></div>
+      <div id="rightDiv" class="rightDiv" onclick="rightDivClicked()"></div>
+      
+      <video id="video" width="100%" height="100%" autoplay muted>
+        <source id="sou" type="video/mp4"/>
+      </video>
+    </div>
+  </body>
+
+  <script>
+    function uploadFile(self){
+
+      let file = self.files[0]
+      var reader = new FileReader();
+      reader.onload = function(e){
+        var src = e.target.result
+        var video = document.getElementById("video")
+        var source = document.getElementById("sou")
+        source.setAttribute("src", src)
+        video.load()
+        video.play()
+        
+      }
+      reader.readAsDataURL(file)
+    }
+    // Global Vriables
+
+  </script>
+</html>
