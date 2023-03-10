@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* ------------------- portrait ----------------- */
+        .PortLayer {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #64ADC5;
+        }
+
+        .TextBox {
+            width: 200px;
+            padding: 30px;
+            font-family: Montserrat-Bold;
+            font-size: 24px;
+            background-color: white;
+            border-radius: 20px;
+            box-sizing: content-box;
+        }
+
+        /* ------------------- portrait xxx ----------------- */
+    </style>
+</head>
+
+<body>
+
+    <body id="root">
+
+        <div class="mainLayout" id="mainLayout">
+            <div class="backgroudColor"></div>
+            <div class="modal_wrapper" id="modelWrapper">
+                <div class="modal_content" id="modelBody">
+                    <div class="modal_content_inner" id="closeModalsection">
+                        <div id="timeSection">
+                            <div class="form_group">
+                                <p>Enter Option text</p>
+
+                                <textarea name="datatext" id="datatext" class="form_control" cols="30" rows="10"
+                                    style="height: 80px;"></textarea>
+                            </div>
+                            <div class="form_group">
+                                <div class="d-flex justify-content-evenly">
+                                    <input type="number" class="form_control timeInput" placeholder="start time (sec)">
+                                    <input type="number" class="form_control timeInput" placeholder="End time (sec)">
+                                    <div id="addMoresection"></div>
+                                </div>
+                            </div>
+                            <div id="showInput" class="form_group"></div>
+                            <div class="form_group text-end" id="saveModalsection">
+                            </div>
+                        </div>
+                        <div id="themeSection">
+                            <div class="form_group">
+                                <p>Select Theme </p>
+                                <select name="theme" class="form_control" id="theme">
+                                </select>
+                            </div>
+                            <div class="form_group text-end" id="applyThemeSection">
+                                <!-- <button class="btn btn-primary" onclick="applyTheme()">Apply</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- video div -->
+            <div id="loader" class="loader"></div>
+            <div class="videoCover" id="videoCover">
+                <video id="video" autoplay muted controls>
+                    <source src="./video/rain.mp4" type="video/mp4" />
+                </video>
+            </div>
+
+            <div id="buttonHolder" class="buttonHolder">
+            </div>
+            <!-- Button -->
+
+            <!-- div for table -->
+            <div class="table">
+                <table id="videoTimeTable" class="display dataTable" aria-describedby="example_info">
+                    <thead>
+                        <tr>
+                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                aria-sort="ascending" aria-label="Name: activate to sort column descending">
+                                #</th>
+                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                aria-label="Position: activate to sort column ascending">Video Time (Sec)</th>
+                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                aria-label="Office: activate to sort column ascending">Theme</th>
+                            <th tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                aria-label="Age: activate to sort column ascending">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                </table>
+            </div>
+            <!-- div for table -->
+        </div>
+
+        <div class="PortLayer" id="portLayer" style="display: none;">
+            <div class="TextBox">
+                <p>Best View on landscape mode.</p>
+                <p>Please rotate the device.</p>
+            </div>
+        </div>
+        <script>
+            window.onload= () => {
+
+                const portrait = window.matchMedia("(orientation: portrait)").matches;
+
+                if (portrait) {
+                    document.getElementById('mainLayout').style.display = 'none';
+                    document.getElementById('portLayer').style.display = 'flex';
+                }
+
+                window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
+                    const portrait = e.matches;
+                    if (portrait) {
+                        document.getElementById('mainLayout').style.display = 'none';
+                        document.getElementById('portLayer').style.display = 'flex';
+
+                    } else {
+                        document.getElementById('mainLayout').style.display = 'block';
+                        document.getElementById('portLayer').style.display = 'none';
+
+                    }
+                });
+
+            }
+        </script>
+    </body>
+</body>
+
+</html>
