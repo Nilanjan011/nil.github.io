@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bootstrop 5 loader</title>
+    <!-- use bootstrap 5 cdn -->
+    <style>
+        .spinnerSize {
+            width: 60px;
+            height: 60px;
+        }
+
+        .loader {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div className="d-flex justify-content-center align-items-center loader">
+        <div className="spinner-border text-success spinnerSize" role="status">
+            <span className="visually-hidden"></span>
+        </div>
+    </div>
+</body>
+
+</html>
