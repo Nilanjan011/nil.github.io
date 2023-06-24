@@ -35,10 +35,19 @@ RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
 
 # docker useful commands
 
+# docker-compose build
+# docker-compose up -d
+# docker-compose down
+
+
 # sudo docker start $(docker ps -a -q)
 
 # sudo docker stop $(docker ps -a -q)
-# aQb@2022
+
+# docker ps
+# docker ps -a
+
+# docker rmi image id 
 
 # docker exec -it contauner_name  bash
 
