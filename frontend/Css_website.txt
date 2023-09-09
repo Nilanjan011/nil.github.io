@@ -1,1 +1,8 @@
+fancy border radius
+https://9elements.github.io/fancy-border-radius/#75.77.39.100--.
 
+box shadow generator
+https://www.cssmatic.com/box-shadow
+
+svg wave generator 
+https://getwaves.io/
