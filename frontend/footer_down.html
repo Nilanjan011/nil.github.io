@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Responsive Website</title>
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        body {
+            margin-bottom: 90px;
+            /* Margin bottom by footer height 
+        }
+        #footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        } */
+        /* chatgpt */
+        /* body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            flex-grow: 1;
+        } */
+
+        /* Ensure footer sticks to the bottom */
+        /* footer {
+            flex-shrink: 0;
+        } */
+
+        /* With these CSS rules,
+        the footer will stick to the bottom of the page when the content is smaller than the viewport,
+        and it will scroll with the content when the content is larger,
+        providing the desired behavior without JavaScript. */
+        /* chatgptxxx */
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="bg-primary text-white text-center py-3">
+        <h1>Welcome to My Website</h1>
+    </header>
+
+    <!-- Content Section -->
+    <!-- <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Main Content</h2>
+                <p>This is the main content of the website.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Sidebar</h3>
+                <p>This is a sidebar with additional    .</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Main Content</h2>
+                <p>This is the main content of the website.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Sidebar</h3>
+                <p>This is a sidebar with additional information.</p>
+            </div>
+        </div>
+    </div>
+     -->
+    <div id="content">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>Main Content</h2>
+                    <p>This is the main content of the website.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Sidebar</h3>
+                    <p>This is a sidebar with additional information.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Content Section -->
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>Main Content</h2>
+                    <p>This is the main content of the website.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Sidebar</h3>
+                    <p>This is a sidebar with additional information.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white text-center py-3" id="footer">
+        &copy; 2023 My Website
+    </footer>
+
+    <!-- Link to Bootstrap JS (optional, if you need Bootstrap JavaScript features) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // Get references to the content and footer elements
+        // const content = document.getElementById('content');
+        // const footer = document.getElementById('footer');
+
+        // // Function to update the position of the footer
+        // function updateFooterPosition() {
+        //     const windowHeight = window.innerHeight;
+        //     const contentHeight = content.offsetHeight;
+        //     const footerHeight = footer.offsetHeight;
+
+        //     if (contentHeight + footerHeight < windowHeight) {
+        //         // Content is smaller than the window height, stick footer to the bottom
+        //         footer.classList.add('fixed-bottom');
+        //     } else {
+        //         // Content is larger, let the footer follow the content
+        //         footer.classList.remove('fixed-bottom');
+        //     }
+        // }
+
+        // // Initial call to set footer position
+        // updateFooterPosition();
+
+        // // Listen for window resize and scroll events to update footer position
+        // window.addEventListener('resize', updateFooterPosition);
+        // window.addEventListener('scroll', updateFooterPosition);
+
+    </script>
+</body>
+
+</html>
