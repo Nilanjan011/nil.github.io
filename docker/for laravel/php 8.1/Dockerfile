@@ -52,3 +52,8 @@ RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
 # docker exec -it contauner_name  bash
 
 # docker exec contauner_name bash -c "chmod -R 777 /var/www/html/storage/logs/"
+
+# Set the appropriate permissions (may be its work, suggestion from chatgpt not try. laravel project download hober por)
+# RUN chown -R www-data:www-data /var/www/html \
+#     && chmod -R 755 /var/www/html/storage
+

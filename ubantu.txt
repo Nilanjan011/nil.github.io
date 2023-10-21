@@ -1,0 +1,31 @@
+## ubuntu
+ Port is running
+ sudo netstat -nlp | grep :3001
+ Stop port
+ sudo kill -9 $(sudo lsof -t -i:3001)
+
+-----------------------------------------------------------------------
+To give all permissions to a folder give chmod -R 777:
+
+sudo chmod -R 777 /var/DirectoryName
+
+---------------------------------------------------------------------------
+
+could not find driver (SQL: select * from `model_detection_stats`)
+solutions:
+
+sudo apt-get install php-mysql
+sudo apt-get install php8.1-mysql
+
+need this extension when you use laravel dom-pdf
+sudo apt-get install php-gd
+---------------------------------------------------------------------------------
+To enable extensions, verify that they are enabled in your .ini files:
+    - /etc/php/8.1/cli/php.ini
+    ...
+    
+sudo apt-get install php8.1-dom
+
+sudo apt-get install php5.6-curl
+
+------------------------------------------------------------------------------------------------
