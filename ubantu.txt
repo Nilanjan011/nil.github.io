@@ -29,3 +29,6 @@ sudo apt-get install php8.1-dom
 sudo apt-get install php5.6-curl
 
 ------------------------------------------------------------------------------------------------
+sudo /etc/init.d/apache2 stop
+
+sudo /opt/lampp/lampp start
