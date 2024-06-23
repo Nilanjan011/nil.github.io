@@ -8,5 +8,26 @@
         "editor.lineHighlightBackground": "#000",
         "editor.wordHighlightBackground": "#762480",
         "editorCursor.foreground": "#fdfcfc"
+
+        // folder open left border
+        "list.activeSelectionForeground": "#FFFFFF", // Text color of selected item
+        "list.activeSelectionBackground": "#000000", // Background color of selected item
+        "list.inactiveSelectionForeground": "#FFFFFF", // Text color of inactive selection
+        "list.inactiveSelectionBackground": "#000000", // Background color of inactive selection
+        "tree.indentGuidesStroke": "#f6f6f6", // Color of indent guides
+        "list.hoverForeground": "#FFFFFF", // Text color when hovering
+        "list.hoverBackground": "#000000" // Background color when hovering
     }
+
+    "editor.tokenColorCustomizations": {
+    "textMateRules": [
+        {
+            "scope": "comment",
+            "settings": {
+                "fontStyle": "italic",
+                "foreground": "#6A9955" // Optional: customize the comment color
+            }
+        }
+    ]
+}
 }
