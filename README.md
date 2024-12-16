@@ -4,7 +4,9 @@ react device detect
 `https://z5qyl2.csb.app/`
 
 
-2. https://stackoverflow.com/questions/24426423/laravel-generate-secure-https-url-from-route
+2.
+
+https://stackoverflow.com/questions/24426423/laravel-generate-secure-https-url-from-route
 
 Laravel 8
 
