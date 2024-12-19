@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag and Drop Table Rows and Columns</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .draggable {
+      cursor: move;
+    }
+  </style>
+</head>
+
+<body>
+  <table id="myTable">
+    <thead>
+      <tr>
+        <th class="draggable">Header 1</th>
+        <th class="draggable">Header 2</th>
+        <th class="draggable">Header 3</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Row 1, Col 1</td>
+        <td>Row 1, Col 2</td>
+        <td>Row 1, Col 3</td>
+      </tr>
+      <tr>
+        <td>Row 2, Col 1</td>
+        <td>Row 2, Col 2</td>
+        <td>Row 2, Col 3</td>
+      </tr>
+      <tr>
+        <td>Row 3, Col 1</td>
+        <td>Row 3, Col 2</td>
+        <td>Row 3, Col 3</td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+    $(function() {
+      // Make table rows sortable
+      $("#myTable tbody").sortable({
+        items: "tr",
+        cursor: "move",
+        placeholder: "ui-state-highlight",
+        update: function(event, ui) {
+          // Optional: Code to handle the update event
+        }
+      });
+
+      // Make table headers sortable (for columns)
+      $("#myTable thead tr").sortable({
+        items: "th",
+        cursor: "move",
+        axis: "x",
+        update: function(event, ui) {
+          
+          // Rearrange the columns based on the new order
+          var newOrder = $(this).sortable("toArray");
+          var table = $(this).closest("table");
+          var rows = table.find("tbody tr");
+          rows.each(function() {
+            var row = $(this);
+            var newRow = $("<tr></tr>");
+            newOrder.forEach(function(headerId) {
+              var index = $(headerId).index();
+              newRow.append(row.children().eq(index).clone());
+            });
+            row.replaceWith(newRow);
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
