@@ -1,0 +1,306 @@
+// add and show vue3
+
+<script setup lang="ts">
+import AppLayout from '@/layouts/AppLayout.vue';
+import { type BreadcrumbItem } from '@/types';
+import { Head, useForm } from '@inertiajs/vue3';
+import InputError from '@/components/InputError.vue';
+import { LoaderCircle, LucideFormInput } from 'lucide-vue-next';
+
+defineProps<{
+    users: Array,
+}>();
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Add User',
+        href: '/add-user',
+    },
+];
+
+const form = useForm({
+    name: '',
+    email: '',
+    password: '',
+    profile_img:null,
+});
+
+const submit = () => {
+    console.log(LucideFormInput);
+    
+    form.post(route('add_user'), {
+        onFinish: () => form.reset('password'),
+    });
+};
+</script>
+
+<template>
+    <Head title="Dashboard" />
+
+    <AppLayout :breadcrumbs="breadcrumbs">
+        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+            <div class="grid auto-rows-min gap-4 md:grid-cols-3">
+                <form @submit.prevent="submit" class="flex flex-col gap-6">
+            <div class="grid gap-6">
+                <div class="grid gap-2">
+                    <Label for="name">Name</Label>
+                    <input id="name" type="text" autofocus :tabindex="1" autocomplete="name" v-model="form.name" placeholder="Full name" />
+                    <InputError :message="form.errors.name" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label for="email">Email address</Label>
+                    <input id="email" type="email" :tabindex="2" autocomplete="email" v-model="form.email" placeholder="email@example.com" />
+                    <InputError :message="form.errors.email" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label for="password">Password</Label>
+                    <input
+                        id="password"
+                        type="password"
+                    
+                        :tabindex="3"
+                        autocomplete="new-password"
+                        v-model="form.password"
+                        placeholder="Password"
+                    />
+                    <InputError :message="form.errors.password" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label for="profile_img">profile_img</Label>
+                    <input
+                        id="profile_img"
+                        type="file"
+                    
+                        @input="form.profile_img = $event.target.files[0]"
+                    />
+                    <InputError :message="form.errors.profile_img" />
+                </div>
+
+                <button type="submit" class="mt-2 w-full" tabindex="5" :disabled="form.processing">
+                    <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
+                    Add
+                </button>
+            </div>
+        </form>
+            </div>
+
+            <table>
+                <thead>
+                    <th>name</th>
+                    <th>image</th>
+                    <th>action</th>
+                </thead>
+                <tbody>
+
+                    <tr v-for="user in users" :key="user.id">
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.profile_img }}</td>
+                        <td><a :href="route('edit_user', user.id)">Edit</a> </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+    </AppLayout>
+</template>
+
+
+// add and show laravel
+
+public function add_user(): Response
+    {
+        $users = User::get();
+        return Inertia::render('add_user',[
+            'users' => $users
+        ]);
+    }
+
+    public function add_user_save(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'password' => ['required'],
+            'profile_img' => 'required|file'
+            
+        ]);
+
+        // Get the file from the request
+        $file = $request->file('profile_img');
+
+        // Generate a unique file name (using the original file name)
+        $filename = time() . '_' . $file->getClientOriginalName();
+
+        // Define the target directory (public or storage)
+        $destinationPath = public_path('profile_images');  // Adjust path if needed
+
+        // Ensure the directory exists
+        if (!File::exists($destinationPath)) {
+            File::makeDirectory($destinationPath, 0775, true); // Create the directory if it does not exist
+        }
+
+        // Move the file to the target directory
+        $file->move($destinationPath, $filename);
+
+        // Save the path in the database (relative path)
+        $imagePath = 'profile_images/' . $filename;
+
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'profile_img' => $imagePath,
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        
+
+        return to_route('users');
+    }
+
+
+// edit in vue3
+
+<script setup lang="ts">
+import AppLayout from '@/layouts/AppLayout.vue';
+import { type BreadcrumbItem } from '@/types';
+import { Head, useForm } from '@inertiajs/vue3';
+import InputError from '@/components/InputError.vue';
+import { LoaderCircle } from 'lucide-vue-next';
+
+const props = defineProps<{
+    user: {
+        id:string;
+        name: string;
+        email: string;
+        profile_img: string | null;
+    },
+}>();
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Edit User',
+        href: '/edit-user',
+    },
+];
+
+const form = useForm({
+    _method:"put",
+    name: props.user.name,
+    email: props.user.email,
+    profile_img: null,
+});
+
+const submit = () => {
+  
+    form.post(route('edit_user', props.user.id));
+};
+</script>
+
+<template>
+    <Head title="Dashboard" />
+
+    <AppLayout :breadcrumbs="breadcrumbs">
+        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+            <div class="grid auto-rows-min gap-4 md:grid-cols-3">
+                <form @submit.prevent="submit" class="flex flex-col gap-6">
+            <div class="grid gap-6">
+                <div class="grid gap-2">
+                    <Label for="name">Name</Label>
+                    <input id="name" type="text" autofocus :tabindex="1" autocomplete="name" v-model="form.name" placeholder="Full name" />
+                    <InputError :message="form.errors.name" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label for="email">Email address</Label>
+                    <input id="email" type="email" :tabindex="2" autocomplete="email" v-model="form.email" placeholder="email@example.com" />
+                    <InputError :message="form.errors.email" />
+                </div>
+
+                <img :src="`/${props.user.profile_img}`" alt="image" width="50px" height="50px">
+                <div class="grid gap-2">
+                    <Label for="profile_img">profile_img</Label>
+                    <input
+                        id="profile_img"
+                        type="file"
+                    
+                        @input="form.profile_img = $event.target.files[0]"
+                    />
+                    <InputError :message="form.errors.profile_img" />
+                </div>
+
+                <button type="submit" class="mt-2 w-full" tabindex="5" :disabled="form.processing">
+                    <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
+                    Update
+                </button>
+            </div>
+        </form>
+            </div>
+
+                        
+        </div>
+    </AppLayout>
+</template>
+
+// edit and update in laravel
+
+
+    public function edit_user(Request $request)
+    {
+        $user = User::find($request->id);
+        return Inertia::render('edit_user',[
+            'user' => $user
+        ]);
+    }
+
+    public function update_user( Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255',
+            'profile_img' => 'required|file'
+            
+        ]);
+
+ 
+        $imagePath = null;
+        $user = User::find($request->id);
+        if ($request->hasFile('profile_img')) {
+            // Get the file from the request
+            $file = $request->file('profile_img');
+
+            // Generate a unique file name (using the original file name)
+            $filename = time() . '_' . $file->getClientOriginalName();
+
+            // Define the target directory (public or storage)
+            $destinationPath = public_path('profile_images');  // Adjust path if needed
+
+            // Ensure the directory exists
+            if (!File::exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 0775, true); // Create the directory if it does not exist
+            }
+
+            // Move the file to the target directory
+            $file->move($destinationPath, $filename);
+
+            // Save the path in the database (relative path)
+            $imagePath = 'profile_images/' . $filename;
+            unlink(public_path($user->profile_img));
+        }
+
+
+        if ($user) {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->profile_img = $imagePath ?? $user->profile_img;
+
+            $user->save();
+        }
+
+        return to_route('add_user');
+    }
